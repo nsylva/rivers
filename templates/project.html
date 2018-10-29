@@ -20,6 +20,10 @@
 			height:500px;
 		}
 	</style>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
 </head>
 <body>
 	<nav class="navbar navbar-inverse">
@@ -52,45 +56,7 @@
 			<div id="feature" class="col-md-8 col-sm-8 col-xs-8">
 				<h1>{{ project_name }}</h1>
 				<div id="my-map"></div>
-				<script type="text/javascript">
-					var mymap = L.map('my-map').setView([39.323041, -120.185002], 13);
-					var basemap = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-						attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-					});
-					basemap.addTo(mymap);
-					mymap.on('load moveend', function(e) {
-   					var bounds = mymap.getBounds();
-   					var southWest = bounds.getSouthWest();
-   					var northEast = bounds.getNorthEast();
-   					var boundsStr = southWest.lng.toFixed(6) + ',' + southWest.lat.toFixed(6) + ','+ northEast.lng.toFixed(6) + ','+ northEast.lat.toFixed(6);
-   					var baseURL = 'https://waterservices.usgs.gov/nwis/iv/?format=json&period=PT2H&parameterCd=00060,00065&siteType=LK,ST&siteStatus=all&bBox=';
-   					var newRequestURL = baseURL + boundsStr
-   					$.post( "/update_stations", {
-    					javascript_data: newRequestURL
-					}).done(function(response) {
-						console.log(response)
-						var obj = JSON.parse(response)
-						for (var key in obj){
-							var site = obj[key]
-							var coordinates = site['coordinates']
-							var site_code = site['site_code']
-							var site_type_code = site['site_type_code']
-							var site_name = site['site_name']
-							var marker = L.marker(coordinates)
-							var popupContent = 
-								'<ul class="list-unstyled">\
-								<li><b>'+ site_name +'</b></li>\
-								<li>Site ID: '+ site_code +'</li>\
-								<li>Site Type: ' + site_type_code + '</li>\
-								<li>Coordinates: '+ coordinates[0] +', ' + coordinates[1]+ '</li>';
-							marker.bindPopup(popupContent).openPopup();
-							marker.addTo(mymap);
-						}
-
-					});
-					});
-					
-				</script>
+				<script src="{{ url_for('static',filename='js/map.js') }}"></script>
 			</div>
 			<div id="details" class="col-md-4 col-sm-4 col-xs-4">
 				<h2>Project Details</h2>
@@ -103,9 +69,5 @@
 			</div>
 		</div>
 	</div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
 </body>
 </html>
