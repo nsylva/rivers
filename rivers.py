@@ -4,7 +4,7 @@ import requests
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
 import time
-source_url = 'https://waterservices.usgs.gov/nwis/iv/?format=json&bBox=-120.234468,38.864888,-119.195384,40.263760&period=PT2H&parameterCd=00060,00065&siteType=LK,ST&siteStatus=all'
+#source_url = 'https://waterservices.usgs.gov/nwis/iv/?format=json&bBox=-120.234468,38.864888,-119.195384,40.263760&period=PT2H&parameterCd=00060,00065&siteType=LK,ST&siteStatus=all'
 
 
 app = Flask(__name__)

@@ -9,7 +9,7 @@ mymap.on('load moveend', function(e) {
    	var southWest = bounds.getSouthWest();
    	var northEast = bounds.getNorthEast();
    	var boundsStr = southWest.lng.toFixed(6) + ',' + southWest.lat.toFixed(6) + ','+ northEast.lng.toFixed(6) + ','+ northEast.lat.toFixed(6);
-   	var baseURL = 'https://waterservices.usgs.gov/nwis/iv/?format=json&period=PT2H&parameterCd=00060,00065&siteType=LK,ST&siteStatus=all&bBox=';
+   	var baseURL = 'https://waterservices.usgs.gov/nwis/iv/?format=json&period=PT2H&parameterCd=00060,00065&siteType=ST&siteStatus=all&bBox=';
    	var newRequestURL = baseURL + boundsStr
    	$.post( "/update_stations", {
     	javascript_data: newRequestURL
