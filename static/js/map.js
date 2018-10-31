@@ -34,13 +34,6 @@ var parseUSGSData = function(data){
 	}
 	return sites
 };
-
-var buildSiteMarkers = function(map,sitesObj,existingSites){
-	var allSites = sitesObj
-	var existing = existingSites
-	
-
-};
 					
 mymap.on('load moveend', function() {
    	var URL = buildRequestURL();
