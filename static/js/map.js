@@ -1,9 +1,9 @@
-global_sites = []
+global_sites = {}
 var mymap = L.map('my-map');
 var basemap = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 	attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 });
-var buildRequestURL = function(){
+function buildRequestURL(){
 	var bounds = mymap.getBounds();
    	var southWest = bounds.getSouthWest();
    	var northEast = bounds.getNorthEast();
@@ -13,7 +13,7 @@ var buildRequestURL = function(){
    	return newRequestURL;
 };
 
-var parseUSGSData = function(data){
+function parseUSGSData(data){
 	var sites = {}
 	var site_list = data['value']['timeSeries']
 	for (var s = 0; s<site_list.length; s++){
@@ -29,10 +29,42 @@ var parseUSGSData = function(data){
 			newSite['siteCode'] = siteCode
 			newSite['siteTypeCode'] = siteTypeCode
 			newSite['coordinates'] = [latitude,longitude]
+			newSite['measurements'] = {}
 			sites[siteCode] = newSite
+		}
+		else {
+			//just get the measurements
 		}
 	}
 	return sites
+};
+
+//var parseMeasurements = function(site) {
+//	var measurements = site['values'][0]['value']
+//
+//}
+
+function validateSearchInput(input){
+	return input.replace(/[^a-zA-Z0-9,. \-]/g, '');
+};
+
+
+function locationSearch(query){
+	$.post('/geocode',{
+		data : validateSearchInput(query)
+	}).done(function(response){
+		if (response == 'Invalid Query'){
+			console.log('Invalid Query');
+			$('#map-cont').prepend('<span class="alert alert-danger">Invalid Search</span>')
+			
+		}
+		else {
+			response = JSON.parse(response);
+			mymap.setView(response,11);
+		}
+	})
+	;
+
 };
 					
 mymap.on('load moveend', function() {
@@ -42,7 +74,7 @@ mymap.on('load moveend', function() {
    		for (var key in USGSData){
 			var site = USGSData[key]
 			var site_code = site['siteCode']
-			if (global_sites.includes(site_code) == false) {
+			if (!(site_code in global_sites)) {
 				//console.log('if statement working')
 				var coordinates = site['coordinates']							
 				var site_type_code = site['siteTypeCode']
@@ -56,7 +88,10 @@ mymap.on('load moveend', function() {
 					<li>Coordinates: '+ coordinates[0] +', ' + coordinates[1]+ '</li>';
 				marker.bindPopup(popupContent).openPopup();
 				marker.addTo(mymap);
-				global_sites.push(site_code);				
+				global_sites[site_code] = site				
+   			}
+   			else {
+   				//just add new measurements
    			}
    		}
 	});
