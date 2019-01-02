@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nick Sylva</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/bootstrap.min.css') }}">
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+  integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+  crossorigin=""/>
+	<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+  integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+  crossorigin=""></script>
+  	<style>
+		#my-map {
+			height:500px;
+		}
+	</style>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Nick Sylva</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbar1">
+    <ul class="navbar-nav ml-auto"> 
+      <li class="nav-item active">
+        <a class="nav-link" href="{{url_for('resume')}}">Home<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('resume')}}">Resume</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('rivers')}}">Rivers Project</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+	<div class="container">
+		<h1>Resume</h1>
+    <div class="row">
+      <div id="Summary" class="col-md-8 col-sm-8 col-xs-8">
+        <h2>Summary</h2>
+        <p>Data Analyst passionate about using technology and data to generate insight, understand human behavior, and develop strategies for organizations to build a better world. My work at Tanko Lighting utilizes infrastructural data to aid municipalities in converting their street lighting systems to LED technologies, saving them energy and money, and allowing them to reduce their carbon footprint, improve public safety, and redirect public funds towards other goals. </p>
+        <p>
+        I take every opportunity to learn about and analyze data of all kinds. I have a keen interest in furthering my knowledge and exposure to human-computer interaction, geospatial, financial, and business intelligence datasets. 
+        </p>
+      </div>
+      <div id="Photo" class="col-md-4 col-sm-4 col-xs-4">
+      <img class="img-fluid" src="{{ url_for('static',filename='images/NickSylva.jpg') }}"  />
+      </div>
+    </div>
+    <div class="row">
+      <div id="Education" class="col-md-12 col-sm-12 col-xs-12">
+        <h2>Education</h2>
+        <h4>San Jose State University</h4>
+        <ul class="list-unstyled">
+          <li>San Jose, CA - August 2009 to May 2014</li>
+          <li>Bachelors of Science in Geology with Honors, <i>cum laude</i></li>
+          <li>Cumulative GPA: 3.57 - Major GPA: 3.94</li>
+          <li>Honors Senior Thesis: <i>Structure of Eocene dikes south of the Duncan Hill Pluton, North Cascades, Washington: Implications for regional strain during postulated ridge subduction</i></li>
+      </ul>
+      </div>
+      <div id="Experience" class="col-md-12 col-sm-12 col-xs-12">
+        <h2>Experience</h2>
+        <h4>Tanko Lighting, Inc. - San Francisco, CA</h4>
+        <ul class="list-unstyled">
+          <li><i>Project Data Analyst II</i> - January 2017 to Present</li>
+          <li> - Own and maintain process-critical datasets. Apply quality control and data cleaning techniques to verify record completeness and conformance to standard models.</li>
+          <li> - Reconcile datasets with varying degrees of quality and age to ground-truth data collected in the field.</li>
+          <li> - Prepare maps, reports, and data products that communicate findings, information, and project status to clients and direct staff in the field.</li>
+          <li> - Develop tools using Python and JavaScript to handle data preparation and clean up, extract photos and metadata, and accomplish Extract-Transform-Load tasks.</li>
+          <li> - Drive project efficiency, consistency, and quality by evangelizing automation and work with different teams to develop goals for implementing data-driven workflows.</li>
+        </ul>
+        <h4>Terraphase Engineering, Inc. - Oakland, CA</h4>
+        <ul class="list-unstyled">
+          <li><i>Staff II Geologist</i> - September 2014 to January 2017</li>
+          <li>- Analyzed, tabulated, and performed QA/QC on data collected in the field to support project goals.</li>
+          <li> - Utilized standard practices to collect samples of soil, water, and air for the purpose of environmental investigation, confirmation of remedial activity, and waste characterization.</li>
+          <li> - Directed and managed subcontractors performing remedial or investigative activities such as excavation or drilling.</li>
+          <li> - Provided construction management, observation, and documentation services for a variety of environmental projects.</li>
+          <li> - Conducted SWPPP inspections for Risk Level 1 and 2 sites under the Construction General Permit</li>
+          <li> - Logged and interpreted soil borings.</li>
+          <li> - Prepared groundwater monitoring, investigation, and Phase I ESA reports.</li>
+          <li> - Wrote SWPPPs for Risk Level 2 construction projects under the direction of a QSD.</li>
+        </ul>
+        <h4>San Jose State University Research Foundation - San Jose, CA</h4>
+        <ul class="list-unstyled">
+          <li><i>Student Assistant – Web Developer/Content Manager</i> - October 2013 to September 2013</li>
+          <li>Project: Digital Atlas of Ancient Life (http://neogeneatlas.org/ & http://pennsylvanianatlas.org/)</li>
+          <li> - Develop websites aimed at increasing public access to information related to fossils and ancient life.</li>
+          <li> - Utilized WordPress CRM using custom PHP templates to streamline the management of a 200+ page, manually updated website. Used HTML and CSS  to control the structure and appearance of the websites.</li>
+          <li> - Managed and cleaned a >100k record dataset of fossil specimens.</li>
+        </ul>
+      </div>
+      <div id="Skills" class="col-md-12 col-sm-12 col-xs-12">
+        <h2>Skills</h2>
+        <ul class="list-unstyled">
+          <li>Programming Languages: Python, JavaScript, SQL, HTML, CSS, PHP</li>
+          <li>Software: ArcGIS, QGIS, Microsoft Office, Adobe Photoshop & Illustrator</li>
+          <li>Operating Systems: Windows, Linux, Apple OS X</li>
+        </ul>
+      </div>   
+    </div>
+	</div>
+</body>
+</html>
