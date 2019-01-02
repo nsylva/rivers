@@ -10,6 +10,11 @@ app = Flask(__name__)
 geocodio_client = GeocodioClient('7d7bff58c5fbdf9b5afc0c7dd59d0bddcb0d9db')
 
 @app.route("/")
+@app.route("/resume")
+def resume():
+	project_name = 'Resume'
+	return render_template("resume.html", project_name = project_name)
+
 @app.route("/rivers")
 def rivers():
 	project_name = 'Rivers'
@@ -32,8 +37,6 @@ def get_coordinates(gc_client, query):
 	coords = location.coords
 	coordinates = [coords[0],coords[1]]
 	return coordinates
-
-	#meet some sort of regex requirement to strip non alpha numeric characters except , .
 
 if __name__ == '__main__':
 	app.run(port=5000,debug = True)
